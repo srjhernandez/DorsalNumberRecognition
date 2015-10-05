@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>/home/jesus/DorsalNumberRecognition/DetectorImagen.h</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/FiltroImagenes.h</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/TesseractOCR.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="images" displayName="images" projectFiles="true">
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto1.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto10.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto11.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto12.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto13.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto14.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto15.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto16.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto17.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto18.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto2.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto3.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto4.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto5.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto6.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto7.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto8.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/foto9.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto1.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto1.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto10.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto11.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto12.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto13.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto14.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto15.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto16.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto17.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto18.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto2.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto3.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto4.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto4.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto5.JPG</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto5.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto6.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto7.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto8.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/fp_foto9.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/lena.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p1.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p2.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p3.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p4.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p5.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p6.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p7.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/p8.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/pic1.png</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/sample_facedetect.jpg</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/images/scratchcard.png</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>/home/jesus/DorsalNumberRecognition/haarcascade_frontalface_alt.xml</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/haarcascade_mcs_upperbody.xml</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/trained_classifierNM1.xml</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/trained_classifierNM2.xml</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/trained_classifier_erGrouping.xml</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>/home/jesus/DorsalNumberRecognition/DetectorImagen.cpp</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/FiltroImagenes.cpp</itemPath>
+      <itemPath>/home/jesus/DorsalNumberRecognition/TesseractOCR.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>/home/jesus/NetBeansProjects/DorsalNumberRecognition/images</Elem>
+    <Elem>/home/jesus/DorsalNumberRecognition/images</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
+          <commandLine>-std=c++14 -Wall -pedantic</commandLine>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>/usr/local/bin</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-I/usr/local/include `pkg-config --cflags --libs tesseract`</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="/home/jesus/DorsalNumberRecognition/DetectorImagen.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/DetectorImagen.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/FiltroImagenes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/FiltroImagenes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/TesseractOCR.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/TesseractOCR.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/haarcascade_frontalface_alt.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/haarcascade_mcs_upperbody.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto1.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto10.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto11.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto12.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto13.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto14.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto15.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto16.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto17.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto18.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto2.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto3.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto4.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto5.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto6.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto7.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto8.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto9.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto1.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto1.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto10.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto11.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto12.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto13.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto14.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto15.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto16.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto17.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto18.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto2.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto3.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto4.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto4.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto5.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto5.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto6.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto7.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto8.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto9.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/lena.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p1.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p2.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p3.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p4.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p5.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p6.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p7.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p8.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/pic1.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/sample_facedetect.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/scratchcard.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/trained_classifierNM1.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/trained_classifierNM2.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/trained_classifier_erGrouping.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="/home/jesus/DorsalNumberRecognition/DetectorImagen.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/DetectorImagen.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/FiltroImagenes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/FiltroImagenes.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/TesseractOCR.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/TesseractOCR.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/haarcascade_frontalface_alt.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/haarcascade_mcs_upperbody.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto1.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto10.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto11.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto12.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto13.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto14.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto15.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto16.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto17.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto18.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto2.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto3.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto4.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto5.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto6.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto7.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto8.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/foto9.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto1.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto1.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto10.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto11.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto12.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto13.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto14.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto15.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto16.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto17.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto18.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto2.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto3.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto4.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto4.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto5.JPG"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto5.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto6.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto7.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto8.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/fp_foto9.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/lena.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p1.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p2.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p3.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p4.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p5.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p6.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p7.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/p8.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/pic1.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/sample_facedetect.jpg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/images/scratchcard.png"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/trained_classifierNM1.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/trained_classifierNM2.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/jesus/DorsalNumberRecognition/trained_classifier_erGrouping.xml"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
