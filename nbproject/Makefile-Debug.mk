@@ -35,9 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/169706627/DetectorImagen.o \
-	${OBJECTDIR}/_ext/169706627/FiltroImagenes.o \
-	${OBJECTDIR}/_ext/169706627/TesseractOCR.o \
+	${OBJECTDIR}/DetectorImagen.o \
+	${OBJECTDIR}/FiltroImagenes.o \
+	${OBJECTDIR}/TesseractOCR.o \
 	${OBJECTDIR}/main.o
 
 
@@ -65,20 +65,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dorsalnumberrecognition: ${OBJECTFILE
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dorsalnumberrecognition ${OBJECTFILES} ${LDLIBSOPTIONS} -I/usr/local/include `pkg-config --cflags --libs tesseract`
 
-${OBJECTDIR}/_ext/169706627/DetectorImagen.o: /home/jesus/DorsalNumberRecognition/DetectorImagen.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/169706627
+${OBJECTDIR}/DetectorImagen.o: DetectorImagen.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/169706627/DetectorImagen.o /home/jesus/DorsalNumberRecognition/DetectorImagen.cpp
+	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DetectorImagen.o DetectorImagen.cpp
 
-${OBJECTDIR}/_ext/169706627/FiltroImagenes.o: /home/jesus/DorsalNumberRecognition/FiltroImagenes.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/169706627
+${OBJECTDIR}/FiltroImagenes.o: FiltroImagenes.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/169706627/FiltroImagenes.o /home/jesus/DorsalNumberRecognition/FiltroImagenes.cpp
+	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FiltroImagenes.o FiltroImagenes.cpp
 
-${OBJECTDIR}/_ext/169706627/TesseractOCR.o: /home/jesus/DorsalNumberRecognition/TesseractOCR.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/169706627
+${OBJECTDIR}/TesseractOCR.o: TesseractOCR.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/169706627/TesseractOCR.o /home/jesus/DorsalNumberRecognition/TesseractOCR.cpp
+	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TesseractOCR.o TesseractOCR.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

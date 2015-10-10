@@ -12,6 +12,7 @@
             <sourceRootList>
                 <sourceRootElem>/home/jesus/NetBeansProjects/DorsalNumberRecognition/images</sourceRootElem>
                 <sourceRootElem>/home/jesus/DorsalNumberRecognition/images</sourceRootElem>
+                <sourceRootElem>images</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
