@@ -120,7 +120,7 @@ void TesseractOCR::runTesseractOCR(cv::Mat &im0){
     }
     
     tesseract::TessBaseAPI tess;
-    tess.Init(NULL, "eng", tesseract::OEM_DEFAULT);
+    tess.Init(NULL, "spa", tesseract::OEM_DEFAULT);
     tess.SetVariable("tessedit_char_whitelist", "0123456789");
     tess.SetPageSegMode(tesseract::PSM_SINGLE_CHAR);
     tess.SetImage((uchar*)dst.data, dst.cols, dst.rows, 1, dst.cols);
