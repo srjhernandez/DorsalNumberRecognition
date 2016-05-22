@@ -7,43 +7,12 @@
 
 #include <iostream>
 #include "TesseractOCR.h"
-#include "DetectorImagen.h"
 
+/*-----------------------------------------------------------------------------*/
 
 TesseractOCR::TesseractOCR() {
 }
 
-TesseractOCR::TesseractOCR(const TesseractOCR& orig) {
-}
-
-
-void TesseractOCR::rgb2cmyk(const cv::Mat& src, std::vector<cv::Mat>& cmyk)
-{
-    CV_Assert(src.type() == CV_8UC3);
-
-    cmyk.clear();
-    for (int i = 0; i < 4; ++i)
-        cmyk.push_back(cv::Mat(src.size(), CV_32F));
-
-    for (int i = 0; i < src.rows; ++i)
-    {
-        for (int j = 0; j < src.cols; ++j)
-        {
-            cv::Vec3b p = src.at<cv::Vec3b>(i,j);
-
-            float r = p[2] / 255.;
-            float g = p[1] / 255.;
-            float b = p[0] / 255.;
-            float k = (1 - std::max(std::max(r,g),b));
-
-            cmyk[0].at<float>(i,j) = (1 - r - k) / (1 - k); 
-            cmyk[1].at<float>(i,j) = (1 - g - k) / (1 - k);
-            cmyk[2].at<float>(i,j) = (1 - b - k) / (1 - k);
-            cmyk[3].at<float>(i,j) = k;
-        }
-    }
-}
-/*-----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------*/
 
 

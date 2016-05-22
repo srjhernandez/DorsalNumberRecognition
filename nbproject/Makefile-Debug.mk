@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -35,9 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/DetectorImagen.o \
-	${OBJECTDIR}/FiltroImagenes.o \
-	${OBJECTDIR}/TesseractOCR.o \
+	${OBJECTDIR}/ExtractTexto.o \
 	${OBJECTDIR}/main.o
 
 
@@ -59,26 +57,16 @@ LDLIBSOPTIONS=-L/usr/local/bin `pkg-config --libs opencv`
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dorsalnumberrecognition
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dnr
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dorsalnumberrecognition: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dnr: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dorsalnumberrecognition ${OBJECTFILES} ${LDLIBSOPTIONS} -I/usr/local/include `pkg-config --cflags --libs tesseract`
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dnr ${OBJECTFILES} ${LDLIBSOPTIONS} -I/usr/local/include `pkg-config --cflags --libs tesseract`
 
-${OBJECTDIR}/DetectorImagen.o: DetectorImagen.cpp 
+${OBJECTDIR}/ExtractTexto.o: ExtractTexto.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DetectorImagen.o DetectorImagen.cpp
-
-${OBJECTDIR}/FiltroImagenes.o: FiltroImagenes.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FiltroImagenes.o FiltroImagenes.cpp
-
-${OBJECTDIR}/TesseractOCR.o: TesseractOCR.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TesseractOCR.o TesseractOCR.cpp
+	$(COMPILE.cc) -g -I/usr/local/include `pkg-config --cflags opencv`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ExtractTexto.o ExtractTexto.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -91,7 +79,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dorsalnumberrecognition
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dnr
 
 # Subprojects
 .clean-subprojects:

@@ -7,21 +7,21 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
-CND_PLATFORM_Debug=GNU-Linux-x86
-CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=dorsalnumberrecognition
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/dorsalnumberrecognition
-CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=dorsalnumberrecognition.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/dorsalnumberrecognition.tar
+CND_PLATFORM_Debug=GNU-Linux
+CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
+CND_ARTIFACT_NAME_Debug=dnr
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/dnr
+CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
+CND_PACKAGE_NAME_Debug=dnr.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/dnr.tar
 # Release configuration
-CND_PLATFORM_Release=GNU-Linux-x86
-CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=dorsalnumberrecognition
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/dorsalnumberrecognition
-CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=dorsalnumberrecognition.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/dorsalnumberrecognition.tar
+CND_PLATFORM_Release=GNU-Linux
+CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
+CND_ARTIFACT_NAME_Release=dnr
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/dnr
+CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
+CND_PACKAGE_NAME_Release=dnr.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/dnr.tar
 #
 # include compiler specific variables
 #
