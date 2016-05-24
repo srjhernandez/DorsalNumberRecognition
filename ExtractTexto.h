@@ -35,8 +35,8 @@ using namespace cv;
 using namespace cv::text;
 
 class ExtractTexto {
-    
-    struct region{
+       
+    struct region{ 
         cv::Rect Reg;
         int numRect;
         int prioridad;  // En función del número de Rect superpuestos en una misma región
@@ -79,7 +79,7 @@ public:
     
     ExtractTexto();   
    
-    void runExtract( std::string const pathToImg ); 
+    void runExtract( std::string const pathToImg,  Tipo_OCR TIPO ); 
 
     virtual ~ExtractTexto();    
     
@@ -151,11 +151,11 @@ private:
         std::vector<cv::Rect> cajasDeTextos;
         
         std::vector<std::string> dorsales; 
-        
+               
         OCR_DORSAL<OCRTesseract> *TESSERACT_DNR; 
         
         OCR_DORSAL<OCRBeamSearchDecoder> *OCRBeamSearchDecoder_DNR;
-        
+               
         OCR_DORSAL<OCRHMMDecoder> *OCRHMMDecoder_DNR; 
         
 };

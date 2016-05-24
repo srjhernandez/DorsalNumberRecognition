@@ -41,7 +41,7 @@ ExtractTexto::ExtractTexto(){
     
     Ptr<OCRBeamSearchDecoder> OCRBeamSearch_Decoder = OCRBeamSearchDecoder::create(
                 loadOCRBeamSearchClassifierCNN("OCRBeamSearch_CNN_model_data.xml.gz"),
-                vocabulario, transition_p, emission_p, OCR_DECODER_VITERBI, 500);
+                vocabulario, transition_p, emission_p, OCR_DECODER_VITERBI, 50);
         
     Ptr<OCRHMMDecoder> OCRHMMDec  = OCRHMMDecoder::create(
                                  loadOCRHMMClassifierNM("OCRHMM_knn_model_data.xml.gz"),
@@ -442,17 +442,20 @@ void ExtractTexto::BinarizarRegion(cv::Mat const &src, cv::Mat &imagenRegion, cv
     cv::Mat original(src, region), gris, originalRZ, adaptative; 
     
     RedimensionarImagen(original, 300, originalRZ);
-            
+       
+    namedWindow("Original", WINDOW_NORMAL);
     cv::imshow("Original", originalRZ);
                    
     cv::cvtColor(originalRZ, gris, CV_BGR2GRAY);
-                
+        
+    namedWindow("gris", WINDOW_NORMAL);
     cv::imshow("gris",gris);
                    
     cv::adaptiveThreshold(gris, adaptative, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 401, 30);     
     
     RedimensionarImagen(adaptative, 200, imagenRegion);
     
+    namedWindow("Imagen Region", WINDOW_NORMAL);
     cv::imshow("Imagen Region",imagenRegion);
     cv::waitKey(-1);
 }
@@ -510,7 +513,7 @@ void ExtractTexto::ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::
       
         DetectarCaracteres( imagenBinaria, regionCaracteres );          
                     
-        std::string new_dorsal = OCRHMMDecoder_DNR->ReconocerDorsal(imagenBinaria, regionCaracteres);
+        std::string new_dorsal = TESSERACT_DNR->ReconocerDorsal(imagenBinaria, regionCaracteres);
               
         size_t t;
         
@@ -518,7 +521,7 @@ void ExtractTexto::ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::
                         
             for ( t=0; t< dorsal.size(); t++){
                 
-                if( dorsal[t] == new_dorsal){
+                if( dorsal[t] == new_dorsal ){
                     break;
                 }                
             }  
@@ -598,7 +601,7 @@ void ExtractTexto::putEtiqueta(cv::Mat& im, const std::vector<std::string> label
 
 /* --------------------------------------------------------------------------*/
 
-void ExtractTexto::runExtract(std::string const path){
+void ExtractTexto::runExtract(std::string const path,  Tipo_OCR OCR_type ){
     
     // Paso 1. Leer la imagen objetivo
      
@@ -619,7 +622,7 @@ void ExtractTexto::runExtract(std::string const path){
         
     
     // Paso 3.  Segmentar las ROIs obteniendo posibles cajas de texto conteniendo el número del dorsal
-           
+    
     for(cv::Rect ROI: ROI_upperbody){        
                   
         cv::Mat imagenROI(imagenEntrada, ROI), imagenPreprocesada;        
@@ -663,9 +666,13 @@ void ExtractTexto::runExtract(std::string const path){
 
 ExtractTexto::~ExtractTexto(){
     
-    /*if ( TesseractDNR )
-        delete TesseractDNR;
-    
-    TesseractDNR = NULL;*/
+    delete TESSERACT_DNR;     
+    TESSERACT_DNR = NULL;
+        
+    delete OCRBeamSearchDecoder_DNR;
+    OCRBeamSearchDecoder_DNR = NULL;    
+        
+    delete OCRHMMDecoder_DNR; 
+    OCRHMMDecoder_DNR = NULL;
     
 }

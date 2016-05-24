@@ -31,8 +31,10 @@ using namespace cv;
 
 using namespace cv::text;
 
+enum class Tipo_OCR { TESSERACT, OCRBEAMSEARCH, OCRHMM };
+
 template <class T> class OCR_DORSAL {
-    
+      
     struct number{
         std::string c;
         int pos;  
@@ -85,20 +87,19 @@ template <class T> class OCR_DORSAL {
     
 public:
     
-    OCR_DORSAL(Ptr<T> _ocr){
-    
-        OCR = _ocr;
-    };
+    OCR_DORSAL(Ptr<T> _ocr);
     
     std::string ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std::vector<cv::Point>> &contornoCaracteres);
-     
-    virtual ~OCR_DORSAL(){};
+    
+    bool carga_OCR();
+    
+    virtual ~OCR_DORSAL();
 
 private:
 
-    void recognition(cv::Mat segmento, std::string &caracter); 
+    void NumberRecognition(cv::Mat segmento, std::string &caracter); 
        
-    Ptr<T> OCR;
+    Ptr<T> *OCR;
     
     std::vector<Rect> boxes;
     

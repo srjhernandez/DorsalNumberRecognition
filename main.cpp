@@ -11,7 +11,7 @@ int main(int argc, char * argv[]) {
             
     ExtractTexto text ;
     
-    text.runExtract("images/foto6.jpg");
+    text.runExtract("images/foto6.jpg", Tipo_OCR::TESSERACT);
     
     return 0;
     
