@@ -10,13 +10,6 @@
 
 #include "OCR_DORSAL.h"
 
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/text.hpp>
-#include "opencv2/core/utility.hpp"
-#include "opencv2/core/mat.hpp"
-#include "opencv2/objdetect/objdetect.hpp"
-#include <iostream>
 #include <vector>
 
 #define MAX_GROUP_BOXES 3
@@ -30,6 +23,8 @@
 #define VERDE Scalar(0,255,0)
 
 #define AZUL Scalar(255,0,0)
+
+#define __FACTOR_UPPER__ 0.999
 
 using namespace cv;
 using namespace cv::text;
@@ -91,10 +86,14 @@ private:
          
     void aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::Rect> &patronesDetectados ,std::string PathXML, double scale, int minNeighbors , Size minSize , Size maxSize);
     
-    void setFaceROI(cv::Mat const &imagen, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);
+    void setFaceROI(int rows, int cols, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);
     
-    void setUpperbodyROI(cv::Mat const &imagen, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);
+    void setUpperbodyROI(int rows, cv::Rect const & upperDetect, cv::Rect & ROIdetect);
+    
+    void setUpperbodyROI(int rows, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);   
 
+    void getFaceAndUpperbodyROI(cv::Mat const &img, std::vector<cv::Rect> &detecciones_face_upper, std::vector<cv::Rect> & face_upper_ROI);
+    
     cv::Rect calcularDimensionROI(int maxFilas, int maxColumnas, cv::Rect const & ROI);  
     
     void dibujarRectangulo(cv::Mat & imagen, std::vector<Rect> const &detecciones, Scalar color);   
@@ -115,8 +114,11 @@ private:
     
     void putEtiqueta(cv::Mat& im, std::vector<std::string> const labels, cv::Rect const ROI);
         
-    void ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::Rect> const &groups_boxes, std::vector<std::string> & dorsal );
-       
+    void ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::Rect> const &groups_boxes, std::vector<std::string> & dorsal, OBJECT_OCR * _ocr );
+
+    void InicializarOCR();    
+    
+    OBJECT_OCR * setTipoOCR( Tipo_OCR _tipoOCR );
 
     private:
 
@@ -139,14 +141,10 @@ private:
         cv::Mat imagenEntrada;
         
         cv::Mat imagenSalida;
-
-        std::vector<cv::Rect> ROI_face;
         
-        std::vector<cv::Rect> detecciones_face;
-
-        std::vector<cv::Rect> ROI_upperbody;   
+        std::vector<cv::Rect> face_upperbody_ROI;
         
-        std::vector<cv::Rect> detecciones_upperbody;
+        std::vector<cv::Rect> detecciones_face_upperbody;
         
         std::vector<cv::Rect> cajasDeTextos;
         
@@ -157,7 +155,7 @@ private:
         OCR_DORSAL<OCRBeamSearchDecoder> *OCRBeamSearchDecoder_DNR;
                
         OCR_DORSAL<OCRHMMDecoder> *OCRHMMDecoder_DNR; 
-        
+               
 };
 
 #endif /* EXTRACTTEXTO_H */

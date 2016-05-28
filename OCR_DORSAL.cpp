@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   OCR_DORSAL.cpp
  * Author: jesus
@@ -18,7 +12,7 @@ template <class T>
 
 OCR_DORSAL<T>::OCR_DORSAL(Ptr<T> _ocr){
     
-    OCR =  new Ptr<T>(_ocr);
+    OCR =  new Ptr<T>( _ocr );
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -26,11 +20,11 @@ OCR_DORSAL<T>::OCR_DORSAL(Ptr<T> _ocr){
 template <class T> 
 
 void OCR_DORSAL<T>::NumberRecognition(cv::Mat segmento, std::string &caracter){
-       
+   
     OCR->get()->run(segmento, caracter, &boxes, &words, &confidences, OCR_LEVEL_WORD); 
     
-    caracter.erase(remove(caracter.begin(), caracter.end(), '\n'), caracter.end());   
-       
+    caracter.erase(remove(caracter.begin(), caracter.end(), '\n'), caracter.end());
+           
 }
 
 /*-----------------------------------------------------------------------------*/
@@ -39,7 +33,7 @@ template <class T>
 
 bool OCR_DORSAL<T>::carga_OCR(){
     
-    return ( !this->OCR->empty());
+    return ( this->OCR->get() || !this->OCR->empty() );
     
 }
 
@@ -62,9 +56,7 @@ std::string OCR_DORSAL<T>::ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std:
 
         int maxNumCharFault = (double)numCaracteres * RATECHARFAULT;
 
-        size_t i;  
-
-        for (i = 0; i < numCaracteres; i++ ){
+        for (size_t i = 0; i < numCaracteres; i++ ){
 
             boundRect[i] = cv::boundingRect(cv::Mat(contornoCaracteres[i]));
 
@@ -76,20 +68,20 @@ std::string OCR_DORSAL<T>::ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std:
 
             cv::Mat imagenSegment( segmentacion, boundRect[i]);
 
-            cv::copyMakeBorder(imagenSegment, imagenSegment,15,15,15,15,BORDER_CONSTANT,Scalar(0));       
+            cv::copyMakeBorder(imagenSegment.clone(), imagenSegment,15,15,15,15,BORDER_CONSTANT,Scalar(0));       
 
             namedWindow("CARACTER", WINDOW_NORMAL);        
             cv::imshow("CARACTER",imagenSegment);
             cv::waitKey(1200);
 
-            NumberRecognition(imagenSegment, digit_numero);   
-
-            numero.add(digit_numero, boundRect[i].x);
-
+            NumberRecognition(imagenSegment, digit_numero); 
+            
+            numero.add(digit_numero, boundRect[i].x);       
+           
             if ( numero.charFault > maxNumCharFault ){                
 
                 return std::string();
-            }             
+            }           
         }
 
         numero.ordenar();

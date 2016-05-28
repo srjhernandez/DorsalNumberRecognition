@@ -27,7 +27,20 @@ ExtractTexto::ExtractTexto(){
     
     Size maxSizeFace();   
     
-    Ptr<OCRTesseract> TESSERACT_OCR = OCRTesseract::create(NULL, "spa", listNumbers, tesseract::OEM_DEFAULT, tesseract::PSM_SINGLE_CHAR);
+    InicializarOCR();    
+   
+}
+
+/*--------------------------------------------------------------------------------------*/
+// Inicializa los OCR que se pueden usar durante la etapa de reconocimiento.
+
+// El módulo consta de tres motores OCR, lo que permite alternar entre éstos para 
+// su aplicación sobre las imágenes. 
+/*--------------------------------------------------------------------------------------*/
+
+void ExtractTexto::InicializarOCR(){
+    
+    Ptr<OCRTesseract> TESSERACT_OCR = OCRTesseract::create(NULL, "eng", listNumbers, tesseract::OEM_DEFAULT, tesseract::PSM_SINGLE_CHAR);
         
     std::string vocabulario = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     
@@ -51,8 +64,50 @@ ExtractTexto::ExtractTexto(){
     
     OCRBeamSearchDecoder_DNR = new OCR_DORSAL<OCRBeamSearchDecoder>( OCRBeamSearch_Decoder );
     
-    OCRHMMDecoder_DNR = new OCR_DORSAL<OCRHMMDecoder>( OCRHMMDec );
-   
+    OCRHMMDecoder_DNR = new OCR_DORSAL<OCRHMMDecoder>( OCRHMMDec );    
+    
+}
+
+/*--------------------------------------------------------------------------------------*/
+// Establece el tipo de OCR que va a ser aplicado en el módulo de reconocimiento.
+
+// Devuelve el Objeto OCR.
+
+/*--------------------------------------------------------------------------------------*/
+
+OBJECT_OCR * ExtractTexto::setTipoOCR( Tipo_OCR _tipoOCR ){
+    
+    OBJECT_OCR * _OCR;
+            
+    switch ( _tipoOCR ){
+        
+        case Tipo_OCR::OCRHMM:{
+            
+            _OCR = OCRHMMDecoder_DNR;
+           
+            break;
+        }
+        case Tipo_OCR::OCRBEAMSEARCH:{
+            
+            _OCR = OCRBeamSearchDecoder_DNR;
+            
+            break;
+        }
+        case Tipo_OCR::TESSERACT:{
+            
+            _OCR = TESSERACT_DNR;
+            
+            break;
+        }
+        default:{
+            
+            _OCR = TESSERACT_DNR;
+            
+            break;
+        }        
+    } 
+     
+    return _OCR;    
 }
 
 
@@ -97,7 +152,7 @@ void ExtractTexto::aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::Re
     
     CascadeClassifier detector(PathXML);   
     
-    detector.detectMultiScale(Imagen.clone(), patronesDetectados, scale, minNeighbors, 0 | CASCADE_SCALE_IMAGE, minSize , maxSize);
+    detector.detectMultiScale(Imagen, patronesDetectados, scale, minNeighbors, 0 | CASCADE_SCALE_IMAGE, minSize , maxSize);
     
 }
 
@@ -122,17 +177,17 @@ void ExtractTexto::dibujarRectangulo(cv::Mat & imagen, std::vector<Rect> const &
 // ROI
 /*--------------------------------------------------------------------------------------*/
     
-void ExtractTexto::setFaceROI(cv::Mat const &imagen, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect){   
+void ExtractTexto::setFaceROI(int rows, int cols, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect){   
      
     ROIdetect.clear();   
         
     for( std::vector<Rect>::const_iterator r = detecciones.begin(); r != detecciones.end(); r++ ){
 
-        cv::Rect ROI = calcularDimensionROI( imagen.rows , imagen.cols , *r);     
+        cv::Rect ROI = calcularDimensionROI( rows , cols , *r);     
         
         if(ROI.height > 0 && ROI.width > 0){
             
-            ROIdetect.push_back(ROI);            
+            ROIdetect.push_back(cv::Rect(ROI));            
         }                
     }        
 }
@@ -140,18 +195,16 @@ void ExtractTexto::setFaceROI(cv::Mat const &imagen, std::vector<cv::Rect> const
 /*--------------------------------------------------------------------------------------*/
 // Determina la región de interés a partir de la detección de caras/hombro.
 
-// ROI
+// ROI. 
 /*--------------------------------------------------------------------------------------*/
 
-void ExtractTexto::setUpperbodyROI(cv::Mat const &imagen, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect){   
+void ExtractTexto::setUpperbodyROI(int rows, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect){   
 
     double alto = 1.5;
 
     int dfHombros;
 
     double heightROI;
-
-    int maxFilas = imagen.rows;
     
     int dfWidth;
      
@@ -176,18 +229,135 @@ void ExtractTexto::setUpperbodyROI(cv::Mat const &imagen, std::vector<cv::Rect> 
             wxPos = r->x;
         }
 
-        if(heightROI + r->height + r->y > maxFilas){
+        if(heightROI + r->height + r->y > rows){
 
-            heightROI = maxFilas - r->y - r->height + dfHombros - 3;
+            heightROI = rows - r->y - r->height + dfHombros - 3;
 
         }
 
         cv::Rect ROI = cv::Rect(wxPos, r->y + r->height - dfHombros, newW, heightROI);   
         
         if(ROI.height > 0 && ROI.width > 0){
-            ROIdetect.push_back(ROI);
+            ROIdetect.push_back(cv::Rect(ROI));
         }        
     } 
+}
+
+/*--------------------------------------------------------------------------------------*/
+// Determina la región de interés a partir de la detección de caras/hombro.
+
+// ROI. 
+/*--------------------------------------------------------------------------------------*/
+
+void ExtractTexto::setUpperbodyROI(int rows, cv::Rect const & upperDetect, cv::Rect & ROIdetect){   
+
+    double alto = 1.5;
+
+    int dfHombros;
+
+    double heightROI;
+    
+    int dfWidth;
+    
+    if ( upperDetect.height > 0 && upperDetect.width > 0 ){
+    
+        dfHombros = (upperDetect.height*0.25);
+
+        heightROI = alto*upperDetect.height;
+
+        dfWidth = upperDetect.width * 0.10;
+
+        int newW = (upperDetect.width - 2*dfWidth);
+
+        int wxPos = upperDetect.x + dfWidth;
+
+        if ( newW <= 0 ) {
+
+            newW = upperDetect.width;
+
+            wxPos = upperDetect.x;
+        }
+
+        if(heightROI + upperDetect.height + upperDetect.y > rows){
+
+            heightROI = rows - upperDetect.y - upperDetect.height + dfHombros - 3;
+
+        }
+
+        cv::Rect ROI = cv::Rect(wxPos, upperDetect.y + upperDetect.height - dfHombros, newW, heightROI);   
+
+        if(ROI.height > 0 && ROI.width > 0){
+            ROIdetect = cv::Rect(ROI);
+        } 
+        else{
+            ROIdetect = cv::Rect();
+        }
+    }
+    else{        
+        ROIdetect = cv::Rect();        
+    }
+}
+
+/* ----------------------------------------------------------------------------------------*/
+
+void ExtractTexto::getFaceAndUpperbodyROI(cv::Mat const &img, std::vector<cv::Rect> &detecciones_face_upper, std::vector<cv::Rect> & face_upper_ROI){
+     
+    std::vector<cv::Rect> detecciones_Upperbody;    
+    
+    bool FaceInUpper;
+    
+    aplicarClasificador(img,  detecciones_face_upper, CV_FACE, scaleFace, minNeighborsFace , minSizeFace, maxSizeFace);
+       
+    if ( detecciones_face_upper.size() == 0 ){
+        
+        aplicarClasificador(img, detecciones_face_upper, CV_UPPERBODY, scaleUpper, minNeighborsUpper , minSizeUpper, maxSizeUpper);             
+                     
+        setUpperbodyROI( img.rows , detecciones_face_upper, face_upper_ROI);
+    
+    }
+    else{
+        
+        setFaceROI(img.rows, img.cols, detecciones_face_upper, face_upper_ROI);
+        
+        aplicarClasificador(img, detecciones_Upperbody, CV_UPPERBODY, scaleUpper, minNeighborsUpper , minSizeUpper, maxSizeUpper); 
+               
+        if ( detecciones_Upperbody.size() > 0){            
+            
+            long unsigned int dimFace = detecciones_face_upper.size();
+            
+            for( cv::Rect upper : detecciones_Upperbody ) {
+                    
+                FaceInUpper = false;
+
+                for( long unsigned int i = 0; i < dimFace; i++) {
+
+                    cv::Rect intersect = detecciones_face_upper[i] & upper;
+
+                    if ( intersect.area() >= detecciones_face_upper[i].area()){
+
+                        FaceInUpper = true;
+                        break;
+                    }                        
+
+                }
+
+                if ( !FaceInUpper ){
+
+                    detecciones_face_upper.push_back(cv::Rect(upper));
+                    
+                    cv::Rect upper_ROI;
+                    
+                    setUpperbodyROI(img.rows, upper, upper_ROI);                    
+                    
+                    face_upper_ROI.push_back(cv::Rect(upper_ROI));
+                }                
+            }        
+        
+        }
+    
+    
+    }
+            
 }
 
 /*--------------------------------------------------------------------------------------*/
@@ -265,7 +435,8 @@ void ExtractTexto::RedimensionarImagen(cv::Mat const &source, int height, cv::Ma
 
 void ExtractTexto::PreprocesarImagen(cv::Mat const &source, cv::Mat &dst){
    
-    dst = source.clone();
+    RedimensionarImagen(source, 400, dst);    
+    
 }
 
 /* --------------------------------------------------------------------------*/
@@ -301,7 +472,10 @@ void ExtractTexto::Segmentar( cv::Mat const & source, std::vector<cv::Rect> &gro
     for (int c = 0; c < cn-1; c++)
         channels.push_back(channels[c]);    
    
-    Ptr<cv::text::ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"), 11, 0.00005, 0.2, 0.8, true, 0.5);
+    //Ptr<cv::text::ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"), 11, 0.00005, 0.2, 0.8, true, 0.5);
+   
+    Ptr<cv::text::ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"), 13, 0.0005, 0.2, 0.5, true, 0.5);
+    
     Ptr<cv::text::ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"), 0.5);
     
     std::vector< std::vector<cv::text::ERStat> > regions(channels.size());
@@ -451,7 +625,9 @@ void ExtractTexto::BinarizarRegion(cv::Mat const &src, cv::Mat &imagenRegion, cv
     namedWindow("gris", WINDOW_NORMAL);
     cv::imshow("gris",gris);
                    
-    cv::adaptiveThreshold(gris, adaptative, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 401, 30);     
+    //cv::adaptiveThreshold(gris, adaptative, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 401, 30);     
+    
+    cv::adaptiveThreshold(gris, adaptative, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 371, 25);
     
     RedimensionarImagen(adaptative, 200, imagenRegion);
     
@@ -493,7 +669,7 @@ void ExtractTexto::DetectarCaracteres(cv::Mat const &caracteresROI, std::vector<
 
 /*-----------------------------------------------------------------------------------------------------*/
 
-void ExtractTexto::ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::Rect> const &groups_boxes, std::vector<std::string> & dorsal ){
+void ExtractTexto::ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::Rect> const &groups_boxes, std::vector<std::string> & dorsal, OBJECT_OCR * OCR ){
       
     dorsal.clear(); 
     
@@ -513,7 +689,7 @@ void ExtractTexto::ReconocimientoDorsal(cv::Mat const & source, std::vector<cv::
       
         DetectarCaracteres( imagenBinaria, regionCaracteres );          
                     
-        std::string new_dorsal = TESSERACT_DNR->ReconocerDorsal(imagenBinaria, regionCaracteres);
+        std::string new_dorsal = OCR->ReconocerDorsal(imagenBinaria, regionCaracteres);
               
         size_t t;
         
@@ -599,9 +775,9 @@ void ExtractTexto::putEtiqueta(cv::Mat& im, const std::vector<std::string> label
     
 }
 
-/* --------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------*/
 
-void ExtractTexto::runExtract(std::string const path,  Tipo_OCR OCR_type ){
+void ExtractTexto::runExtract(std::string const path, Tipo_OCR OCR_type ){
     
     // Paso 1. Leer la imagen objetivo
      
@@ -609,44 +785,46 @@ void ExtractTexto::runExtract(std::string const path,  Tipo_OCR OCR_type ){
         return;
      
     
-    // Paso 2.  Obtener Regiones de Interés en la imagen cargada, donde es probable localizar
+    // Paso 2.  Establecer el tipo de OCR a aplicar 
+    
+    OBJECT_OCR *Objeto_OCR = setTipoOCR( OCR_type );
+    
+    if ( !Objeto_OCR )
+        return;
+    
+    
+    // Paso 3.  Obtener Regiones de Interés en la imagen cargada, donde es probable localizar
     //          dorsales.
     
-    aplicarClasificador(imagenEntrada,  detecciones_face, CV_FACE, scaleFace, minNeighborsFace , minSizeFace, maxSizeFace);
-   
-    setFaceROI(imagenEntrada, detecciones_face, ROI_face); 
+    getFaceAndUpperbodyROI(imagenEntrada, detecciones_face_upperbody, face_upperbody_ROI);
     
-    aplicarClasificador(imagenEntrada, detecciones_upperbody, CV_UPPERBODY, scaleUpper, minNeighborsUpper , minSizeUpper, maxSizeUpper);             
+       
+    // Paso 4.  Segmentar las ROIs obteniendo posibles cajas de texto conteniendo el número del dorsal
     
-    setUpperbodyROI(imagenEntrada, detecciones_upperbody, ROI_upperbody);
-        
-    
-    // Paso 3.  Segmentar las ROIs obteniendo posibles cajas de texto conteniendo el número del dorsal
-    
-    for(cv::Rect ROI: ROI_upperbody){        
+    for(cv::Rect ROI: face_upperbody_ROI){        
                   
         cv::Mat imagenROI(imagenEntrada, ROI), imagenPreprocesada;        
                 
-        PreprocesarImagen( imagenROI, imagenPreprocesada ); 
-               
+        PreprocesarImagen( imagenROI, imagenPreprocesada );      
+        
         Segmentar( imagenPreprocesada, cajasDeTextos );        
        
-        ReconocimientoDorsal( imagenPreprocesada, cajasDeTextos, dorsales);
+        ReconocimientoDorsal( imagenPreprocesada, cajasDeTextos, dorsales, Objeto_OCR);
         
         putEtiqueta(imagenSalida, dorsales, ROI);
         
     }   
     
     
-    // Paso 4. Dibujar rectángulos de color en la imagen con los patrones detectados.
+    // Paso 5. Dibujar rectángulos de color en la imagen con los patrones detectados.
 
     //dibujarRectangulo(imagenSalida, ROI_face, AZUL);
     
     //dibujarRectangulo(imagenSalida, detecciones_face, AZUL); 
     
-    dibujarRectangulo(imagenSalida, ROI_upperbody, VERDE);
+    //dibujarRectangulo(imagenSalida, ROI_upperbody, VERDE);
     
-    dibujarRectangulo(imagenSalida, detecciones_upperbody, VERDE); 
+    //dibujarRectangulo(imagenSalida, detecciones_upperbody, VERDE); 
       
     namedWindow("test", WINDOW_NORMAL);
         
@@ -655,9 +833,11 @@ void ExtractTexto::runExtract(std::string const path,  Tipo_OCR OCR_type ){
     cv::waitKey(-1); 
     
     
-    // Paso 5. Liberar la memoria asignada a las imágenes para su lectura.
+    // Paso 6. Liberar la memoria asignada.
     
     liberarRecursosImagen();
+    
+    Objeto_OCR = NULL;
     
 }
 
@@ -666,13 +846,16 @@ void ExtractTexto::runExtract(std::string const path,  Tipo_OCR OCR_type ){
 
 ExtractTexto::~ExtractTexto(){
     
-    delete TESSERACT_DNR;     
+    if ( TESSERACT_DNR )    
+        delete TESSERACT_DNR;     
     TESSERACT_DNR = NULL;
-        
-    delete OCRBeamSearchDecoder_DNR;
+      
+    if ( OCRBeamSearchDecoder_DNR ) 
+        delete OCRBeamSearchDecoder_DNR;
     OCRBeamSearchDecoder_DNR = NULL;    
-        
-    delete OCRHMMDecoder_DNR; 
+     
+    if ( OCRHMMDecoder_DNR )
+        delete OCRHMMDecoder_DNR; 
     OCRHMMDecoder_DNR = NULL;
     
 }

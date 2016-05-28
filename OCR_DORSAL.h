@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   OCR_DORSAL.h
  * Author: jesus
@@ -28,12 +22,28 @@
 #define RATECHARFAULT 0.50
 
 using namespace cv;
-
 using namespace cv::text;
 
 enum class Tipo_OCR { TESSERACT, OCRBEAMSEARCH, OCRHMM };
 
-template <class T> class OCR_DORSAL {
+
+/*   Clase general para los OCR */
+
+class OBJECT_OCR {
+    
+    public:
+
+        virtual std::string ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std::vector<cv::Point>> &contornoCaracteres) = 0;
+
+        virtual ~OBJECT_OCR(){};
+
+};
+
+
+   
+//  Clase Template 
+
+template <class T> class OCR_DORSAL : public OBJECT_OCR  {
       
     struct number{
         std::string c;
@@ -50,32 +60,28 @@ template <class T> class OCR_DORSAL {
     struct vecNumber{
         
         std::vector<number> digitos; 
-        
-        std::string numero;
-        
+       
         int charFault = 0;
         
         std::string get(){            
              
-            numero.clear();
-                        
+            std::string numero;                        
             for(number num : digitos){              
-                numero.append(num.c);            
-            }    
-            std::cout<<"EL NUMERO ES:  --> "<<numero<<std::endl;
+                numero += num.c;            
+            }             
             return numero;
         };   
         
-        void add(std::string caracter, int pos){  
+        void add(std::string &caracter, int pos){  
                       
-            if ( std::string(listNumbers).find(caracter) == std::string::npos ){    
-               
+            if ( caracter.empty() || std::string(listNumbers).find(caracter) == std::string::npos ){                
                 charFault++;            
             } 
             else{            
 
                 digitos.push_back( number(caracter, pos) );
             } 
+            caracter.clear();
         };
               
         void ordenar(){            
