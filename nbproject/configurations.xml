@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>ExtractTexto.h</itemPath>
       <itemPath>OCR_DORSAL.h</itemPath>
+      <itemPath>RegionesDorsal.h</itemPath>
     </logicalFolder>
     <logicalFolder name="images" displayName="images" projectFiles="true">
       <itemPath>images/foto1.JPG</itemPath>
@@ -58,6 +59,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>ExtractTexto.cpp</itemPath>
+      <itemPath>RegionesDorsal.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -116,6 +118,10 @@
       <item path="OCRHMM_transitions_table.xml" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OCR_DORSAL.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RegionesDorsal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RegionesDorsal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="haarcascade_frontalface_alt.xml" ex="false" tool="3" flavor2="0">
       </item>
@@ -230,6 +236,10 @@
       <item path="OCRHMM_transitions_table.xml" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OCR_DORSAL.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RegionesDorsal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RegionesDorsal.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="haarcascade_frontalface_alt.xml" ex="false" tool="3" flavor2="0">
       </item>

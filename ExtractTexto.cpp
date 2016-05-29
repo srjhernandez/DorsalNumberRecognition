@@ -9,24 +9,8 @@
 
 // Constructor de la clase ExtractTexto. Inicializació de las atributos.
 
-ExtractTexto::ExtractTexto(){
-    
-    scaleFace = 1.15;
-    
-    minNeighborsFace = 2;
-       
-    scaleUpper = 1.20;
-    
-    minNeighborsUpper = 3;
-    
-    Size minSizeUpper();
-    
-    Size maxSizeUpper();
-    
-    Size minSizeFace();
-    
-    Size maxSizeFace();   
-    
+ExtractTexto::ExtractTexto(){   
+   
     InicializarOCR();    
    
 }
@@ -141,20 +125,27 @@ bool ExtractTexto::leerImagen(std::string const pathToImg){
 }
 
 /*--------------------------------------------------------------------------------------*/
-/*  Devuelte un objeto de la clase MatOfRect que contiene los patrones detectados en la 
+//  Dibuja un rectángulo de color para cada una de las detecciones realizadas, en
 
- *  imagen pasada como primer parámetro.   */
+//  función del clasificador aplicado.
 /*--------------------------------------------------------------------------------------*/
+
+void ExtractTexto::imprimirDetecciones(cv::Mat &imagen, RegionesDorsal reg , Scalar color){
     
-void ExtractTexto::aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::Rect> &patronesDetectados ,std::string PathXML, double scale, int minNeighbors , Size minSize , Size maxSize){
-    
-    patronesDetectados.clear();
-    
-    CascadeClassifier detector(PathXML);   
-    
-    detector.detectMultiScale(Imagen, patronesDetectados, scale, minNeighbors, 0 | CASCADE_SCALE_IMAGE, minSize , maxSize);
-    
+    for ( long unsigned int t = 0; t < reg.size(); t++){
+        
+        if ( reg.regionHasDorsal(t) ){
+            
+            dibujarRectangulo(imagen, reg.getFaceUpper(t), color);
+                        
+            dibujarRectangulo(imagen, reg.getROI(t), color);
+        
+            putEtiqueta(imagenSalida, reg.getDorsalesOfROI(t), reg.getROI(t));
+        }
+                
+    }
 }
+
 
 /*--------------------------------------------------------------------------------------*/
 //  Dibuja un rectángulo de color para cada una de las detecciones realizadas, en
@@ -162,35 +153,11 @@ void ExtractTexto::aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::Re
 //  función del clasificador aplicado.
 /*--------------------------------------------------------------------------------------*/
     
-void ExtractTexto::dibujarRectangulo(cv::Mat & imagen, std::vector<Rect> const &detecciones, Scalar color){
+void ExtractTexto::dibujarRectangulo(cv::Mat & imagen, cv::Rect const &r, Scalar color){
 
-    for( std::vector<Rect>::const_iterator r = detecciones.begin(); r != detecciones.end(); r++ ){
-        
-        rectangle(imagen, cvPoint(r->x, r->y), cvPoint(r->x + r->width, r->y + r->height), color ,2);     
-        
-    }    
-} 
-
-/*--------------------------------------------------------------------------------------*/
-// Determina la región de interés a partir de la detección de caras.
-
-// ROI
-/*--------------------------------------------------------------------------------------*/
+    rectangle(imagen, cvPoint(r.x, r.y), cvPoint(r.x + r.width, r.y + r.height), color ,2);     
     
-void ExtractTexto::setFaceROI(int rows, int cols, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect){   
-     
-    ROIdetect.clear();   
-        
-    for( std::vector<Rect>::const_iterator r = detecciones.begin(); r != detecciones.end(); r++ ){
-
-        cv::Rect ROI = calcularDimensionROI( rows , cols , *r);     
-        
-        if(ROI.height > 0 && ROI.width > 0){
-            
-            ROIdetect.push_back(cv::Rect(ROI));            
-        }                
-    }        
-}
+} 
 
 /*--------------------------------------------------------------------------------------*/
 // Determina la región de interés a partir de la detección de caras/hombro.
@@ -241,172 +208,6 @@ void ExtractTexto::setUpperbodyROI(int rows, std::vector<cv::Rect> const &detecc
             ROIdetect.push_back(cv::Rect(ROI));
         }        
     } 
-}
-
-/*--------------------------------------------------------------------------------------*/
-// Determina la región de interés a partir de la detección de caras/hombro.
-
-// ROI. 
-/*--------------------------------------------------------------------------------------*/
-
-void ExtractTexto::setUpperbodyROI(int rows, cv::Rect const & upperDetect, cv::Rect & ROIdetect){   
-
-    double alto = 1.5;
-
-    int dfHombros;
-
-    double heightROI;
-    
-    int dfWidth;
-    
-    if ( upperDetect.height > 0 && upperDetect.width > 0 ){
-    
-        dfHombros = (upperDetect.height*0.25);
-
-        heightROI = alto*upperDetect.height;
-
-        dfWidth = upperDetect.width * 0.10;
-
-        int newW = (upperDetect.width - 2*dfWidth);
-
-        int wxPos = upperDetect.x + dfWidth;
-
-        if ( newW <= 0 ) {
-
-            newW = upperDetect.width;
-
-            wxPos = upperDetect.x;
-        }
-
-        if(heightROI + upperDetect.height + upperDetect.y > rows){
-
-            heightROI = rows - upperDetect.y - upperDetect.height + dfHombros - 3;
-
-        }
-
-        cv::Rect ROI = cv::Rect(wxPos, upperDetect.y + upperDetect.height - dfHombros, newW, heightROI);   
-
-        if(ROI.height > 0 && ROI.width > 0){
-            ROIdetect = cv::Rect(ROI);
-        } 
-        else{
-            ROIdetect = cv::Rect();
-        }
-    }
-    else{        
-        ROIdetect = cv::Rect();        
-    }
-}
-
-/* ----------------------------------------------------------------------------------------*/
-
-void ExtractTexto::getFaceAndUpperbodyROI(cv::Mat const &img, std::vector<cv::Rect> &detecciones_face_upper, std::vector<cv::Rect> & face_upper_ROI){
-     
-    std::vector<cv::Rect> detecciones_Upperbody;    
-    
-    bool FaceInUpper;
-    
-    aplicarClasificador(img,  detecciones_face_upper, CV_FACE, scaleFace, minNeighborsFace , minSizeFace, maxSizeFace);
-       
-    if ( detecciones_face_upper.size() == 0 ){
-        
-        aplicarClasificador(img, detecciones_face_upper, CV_UPPERBODY, scaleUpper, minNeighborsUpper , minSizeUpper, maxSizeUpper);             
-                     
-        setUpperbodyROI( img.rows , detecciones_face_upper, face_upper_ROI);
-    
-    }
-    else{
-        
-        setFaceROI(img.rows, img.cols, detecciones_face_upper, face_upper_ROI);
-        
-        aplicarClasificador(img, detecciones_Upperbody, CV_UPPERBODY, scaleUpper, minNeighborsUpper , minSizeUpper, maxSizeUpper); 
-               
-        if ( detecciones_Upperbody.size() > 0){            
-            
-            long unsigned int dimFace = detecciones_face_upper.size();
-            
-            for( cv::Rect upper : detecciones_Upperbody ) {
-                    
-                FaceInUpper = false;
-
-                for( long unsigned int i = 0; i < dimFace; i++) {
-
-                    cv::Rect intersect = detecciones_face_upper[i] & upper;
-
-                    if ( intersect.area() >= detecciones_face_upper[i].area()){
-
-                        FaceInUpper = true;
-                        break;
-                    }                        
-
-                }
-
-                if ( !FaceInUpper ){
-
-                    detecciones_face_upper.push_back(cv::Rect(upper));
-                    
-                    cv::Rect upper_ROI;
-                    
-                    setUpperbodyROI(img.rows, upper, upper_ROI);                    
-                    
-                    face_upper_ROI.push_back(cv::Rect(upper_ROI));
-                }                
-            }        
-        
-        }
-    
-    
-    }
-            
-}
-
-/*--------------------------------------------------------------------------------------*/
-// Calcula las dimensiones de la región de interés en función del número máximo de filas y columnas
-
-// de la imagen.
-/*--------------------------------------------------------------------------------------*/
-    
-cv::Rect ExtractTexto::calcularDimensionROI(int maxFilas, int maxColumnas, cv::Rect const & ROI){
-        
-    double xROI, yROI, heightROI, widthROI;
-
-    double alto = 3.5;
-
-    double anchoCuerpo = (ROI.width/2.5);
-
-    double cuello = (ROI.height/2.5);
-
-    xROI = ROI.x - anchoCuerpo;
-
-    yROI = ROI.y + ROI.height + cuello;
-
-    widthROI = ROI.width + 2*anchoCuerpo;
-
-    heightROI = ROI.height*alto;   
-
-    if(xROI < 0){
-
-        xROI = 0;
-    }
-    if(yROI > maxFilas){
-
-        yROI = maxFilas;
-
-        heightROI = 0;
-
-    }
-
-    if((xROI +  widthROI) > maxColumnas){
-
-        widthROI = maxColumnas - xROI;
-    }
-    if(yROI + heightROI > maxFilas){
-
-        heightROI = maxFilas - yROI;
-    }
-
-    return cv::Rect(xROI,yROI,widthROI,heightROI);
-
 }
 
 /*--------------------------------------------------------------------------------------*/
@@ -796,36 +597,29 @@ void ExtractTexto::runExtract(std::string const path, Tipo_OCR OCR_type ){
     // Paso 3.  Obtener Regiones de Interés en la imagen cargada, donde es probable localizar
     //          dorsales.
     
-    getFaceAndUpperbodyROI(imagenEntrada, detecciones_face_upperbody, face_upperbody_ROI);
+    DNR_Regiones.setDorsalROI(imagenEntrada);
     
        
     // Paso 4.  Segmentar las ROIs obteniendo posibles cajas de texto conteniendo el número del dorsal
     
-    for(cv::Rect ROI: face_upperbody_ROI){        
+    for( long unsigned int num =0; num < DNR_Regiones.size(); num++  ){        
                   
-        cv::Mat imagenROI(imagenEntrada, ROI), imagenPreprocesada;        
+        cv::Mat imagenROI(imagenEntrada, DNR_Regiones.getROI(num)), imagenPreprocesada;        
                 
         PreprocesarImagen( imagenROI, imagenPreprocesada );      
         
         Segmentar( imagenPreprocesada, cajasDeTextos );        
        
         ReconocimientoDorsal( imagenPreprocesada, cajasDeTextos, dorsales, Objeto_OCR);
-        
-        putEtiqueta(imagenSalida, dorsales, ROI);
-        
-    }   
+                
+        DNR_Regiones.setDorsal(num, dorsales);        
+    }       
     
-    
-    // Paso 5. Dibujar rectángulos de color en la imagen con los patrones detectados.
+    // Paso 5. Crear una imagen nueva incluyendo las detecciones
 
-    //dibujarRectangulo(imagenSalida, ROI_face, AZUL);
+    imprimirDetecciones(imagenSalida, DNR_Regiones , AZUL);
     
-    //dibujarRectangulo(imagenSalida, detecciones_face, AZUL); 
-    
-    //dibujarRectangulo(imagenSalida, ROI_upperbody, VERDE);
-    
-    //dibujarRectangulo(imagenSalida, detecciones_upperbody, VERDE); 
-      
+         
     namedWindow("test", WINDOW_NORMAL);
         
     cv::imshow("test", imagenSalida);

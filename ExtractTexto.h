@@ -9,14 +9,9 @@
 #define EXTRACTTEXTO_H
 
 #include "OCR_DORSAL.h"
-
-#include <vector>
+#include "RegionesDorsal.h"
 
 #define MAX_GROUP_BOXES 3
-
-#define CV_FACE std::string("haarcascade_frontalface_alt.xml")
-
-#define CV_UPPERBODY std::string("haarcascade_mcs_upperbody.xml")
 
 #define ROJO Scalar(0,0,255)
 
@@ -82,21 +77,13 @@ private:
     
     bool leerImagen( std::string const pathToImg );
     
-    void liberarRecursosImagen();
-         
-    void aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::Rect> &patronesDetectados ,std::string PathXML, double scale, int minNeighbors , Size minSize , Size maxSize);
-    
-    void setFaceROI(int rows, int cols, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);
-    
-    void setUpperbodyROI(int rows, cv::Rect const & upperDetect, cv::Rect & ROIdetect);
+    void liberarRecursosImagen();       
     
     void setUpperbodyROI(int rows, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);   
-
-    void getFaceAndUpperbodyROI(cv::Mat const &img, std::vector<cv::Rect> &detecciones_face_upper, std::vector<cv::Rect> & face_upper_ROI);
+         
+    void dibujarRectangulo(cv::Mat & imagen, cv::Rect const &detecciones, Scalar color);   
     
-    cv::Rect calcularDimensionROI(int maxFilas, int maxColumnas, cv::Rect const & ROI);  
-    
-    void dibujarRectangulo(cv::Mat & imagen, std::vector<Rect> const &detecciones, Scalar color);   
+    void imprimirDetecciones(cv::Mat &imagen, RegionesDorsal reg , Scalar color );
        
     void RedimensionarImagen(cv::Mat const &source, int height, cv::Mat &dst);
     
@@ -120,23 +107,7 @@ private:
     
     OBJECT_OCR * setTipoOCR( Tipo_OCR _tipoOCR );
 
-    private:
-
-        double scaleFace;
-
-        int minNeighborsFace;
-
-        Size minSizeFace;
-
-        Size maxSizeFace;
-
-        double scaleUpper;
-
-        int minNeighborsUpper;
-
-        Size minSizeUpper;
-
-        Size maxSizeUpper;       
+    private:      
                
         cv::Mat imagenEntrada;
         
@@ -149,6 +120,8 @@ private:
         std::vector<cv::Rect> cajasDeTextos;
         
         std::vector<std::string> dorsales; 
+        
+        RegionesDorsal DNR_Regiones;
                
         OCR_DORSAL<OCRTesseract> *TESSERACT_DNR; 
         
