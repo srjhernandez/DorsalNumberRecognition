@@ -253,7 +253,6 @@ void ExtractTexto::groups_draw(Mat &src, std::vector<Rect> &groups)
     }
 }
 
-
 /*--------------------------------------------------------------------------------------*/
 // Etapa de segmentación de la imagen con el fin de extraer localizaciones de la misma
 
@@ -306,7 +305,6 @@ void ExtractTexto::Segmentar( cv::Mat const & source, std::vector<cv::Rect> &gro
     regions.clear();
     
 }
-
 
 /*-----------------------------------------------------------------------------------------------------*/
 
@@ -602,9 +600,9 @@ void ExtractTexto::runExtract(std::string const path, Tipo_OCR OCR_type ){
        
     // Paso 4.  Segmentar las ROIs obteniendo posibles cajas de texto conteniendo el número del dorsal
     
-    for( long unsigned int num =0; num < DNR_Regiones.size(); num++  ){        
+    for( long unsigned int j = 0; j < DNR_Regiones.size(); j++  ){        
                   
-        cv::Mat imagenROI(imagenEntrada, DNR_Regiones.getROI(num)), imagenPreprocesada;        
+        cv::Mat imagenROI(imagenEntrada, DNR_Regiones.getROI(j)), imagenPreprocesada;        
                 
         PreprocesarImagen( imagenROI, imagenPreprocesada );      
         
@@ -612,7 +610,7 @@ void ExtractTexto::runExtract(std::string const path, Tipo_OCR OCR_type ){
        
         ReconocimientoDorsal( imagenPreprocesada, cajasDeTextos, dorsales, Objeto_OCR);
                 
-        DNR_Regiones.setDorsal(num, dorsales);        
+        DNR_Regiones.setDorsal(j, dorsales);        
     }       
     
     // Paso 5. Crear una imagen nueva incluyendo las detecciones

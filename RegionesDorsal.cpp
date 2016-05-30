@@ -13,9 +13,9 @@ RegionesDorsal::RegionesDorsal() {
     
     minNeighborsFace = 2;
        
-    scaleUpper = 1.20;
+    scaleUpper = 1.12;
     
-    minNeighborsUpper = 3;
+    minNeighborsUpper = 2;
     
     Size minSizeUpper();
     
@@ -29,7 +29,7 @@ RegionesDorsal::RegionesDorsal() {
 /*--------------------------------------------------------------------------------------*/
 /*  Devuelte un objeto de la clase MatOfRect que contiene los patrones detectados en la 
 
- *  imagen pasada como primer parámetro.   */
+    imagen pasada como primer parámetro.   */
 /*--------------------------------------------------------------------------------------*/
     
 void RegionesDorsal::aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::Rect> &patronesDetectados ,std::string PathXML, double scale, int minNeighbors , Size minSize , Size maxSize){
@@ -40,9 +40,8 @@ void RegionesDorsal::aplicarClasificador(cv::Mat const &Imagen, std::vector<cv::
     
 }
 
-
 /*--------------------------------------------------------------------------------------*/
-// Determina la región de interés a partir de la detección de caras/hombro.
+// Determina la región de interés a partir de la detección de patrones cara/hombro.
 
 // ROI. 
 /*--------------------------------------------------------------------------------------*/
@@ -96,12 +95,11 @@ void RegionesDorsal::setUpperbodyROI(int const &rows, cv::Rect const & upperDete
     }
 }
 
-
-/*--------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
 // Calcula las dimensiones de la región de interés en función del número máximo de filas y columnas
 
 // de la imagen.
-/*--------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
     
 cv::Rect RegionesDorsal::calcularDimensionROI(const int &maxFilas, const int &maxColumnas, cv::Rect const & ROI){
         
@@ -146,14 +144,13 @@ cv::Rect RegionesDorsal::calcularDimensionROI(const int &maxFilas, const int &ma
 
 }
 
-
 /*--------------------------------------------------------------------------------------*/
 // Determina la región de interés a partir de la detección de caras.
 
 // ROI
 /*--------------------------------------------------------------------------------------*/
     
-void RegionesDorsal::setFaceROI(int rows, int cols, std::vector<cv::Rect> const &detecciones, std::vector<participante> &grupo){   
+void RegionesDorsal::setFaceROI(const int &rows, const int &cols, std::vector<cv::Rect> const &detecciones, std::vector<participante> &grupo){   
        
     long unsigned int ref = 0;
    
@@ -170,32 +167,34 @@ void RegionesDorsal::setFaceROI(int rows, int cols, std::vector<cv::Rect> const 
     }        
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+// Determina la región de interés a partir de la detección de patrones de caras y cara/hombro (ROI).
 
+//  @param   img   Imagen de entrada objeto de análisis en la detección de patrones.
+
+//  Combinación de los dos clasificadores tomando como prioritario el detector de caras. Los patticipantes
+
+//  localizados en la imagen tendrán asignados una región de interés donde se realizará la búsqueda del dorsal.
+
+/*----------------------------------------------------------------------------------------------------*/
 void RegionesDorsal::setDorsalROI(cv::Mat const &img){
-       
-       
-    Participantes.clear();  
-    
-    bool FaceInUpper;
+            
+    Participantes.clear();      
     
     aplicarClasificador(img,  Participantes.detecciones_face_upper, CV_FACE, scaleFace, minNeighborsFace , minSizeFace, maxSizeFace);
        
     if ( Participantes.detecciones_face_upper.size() == 0 ){
         
         aplicarClasificador(img, Participantes.detecciones_face_upper, CV_UPPERBODY, scaleUpper, minNeighborsUpper , minSizeUpper, maxSizeUpper);             
-                     
-        //setUpperbodyROI( img.rows , Participantes.detecciones_face_upper, face_upper_ROI);
-        
+               
         for ( long unsigned int t = 0; t < Participantes.detecciones_face_upper.size(); t++){
             
             cv::Rect face_upper_ROI;
             
             setUpperbodyROI( img.rows , Participantes.detecciones_face_upper[t], face_upper_ROI);
             
-            Participantes.grupo.push_back(participante(t, face_upper_ROI));
-        }
-    
+            Participantes.grupo.push_back(  participante(t, face_upper_ROI)  );
+        }   
     }
     else{
         
@@ -207,7 +206,9 @@ void RegionesDorsal::setDorsalROI(cv::Mat const &img){
                
         if ( detecciones_Upperbody.size() > 0){            
             
-            long unsigned int dimFace = Participantes.detecciones_face_upper.size();
+            long unsigned int dimFace = Participantes.detecciones_face_upper.size();           
+            
+            bool FaceInUpper;
             
             for( cv::Rect upper : detecciones_Upperbody ) {
                     
@@ -217,7 +218,7 @@ void RegionesDorsal::setDorsalROI(cv::Mat const &img){
 
                     cv::Rect intersect = Participantes.detecciones_face_upper[i] & upper;
 
-                    if ( intersect.area() >= Participantes.detecciones_face_upper[i].area()){
+                    if ( intersect.area() >= Participantes.detecciones_face_upper[i].area() ){
 
                         FaceInUpper = true;
                         break;
@@ -244,19 +245,24 @@ void RegionesDorsal::setDorsalROI(cv::Mat const &img){
             
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+// Asignar un dorsal o grupo de posibles dorsales después de la etapa de reconocimiento.
 
-void RegionesDorsal::setDorsal(long unsigned int pos, std::vector<std::string> __dorsales){    
+/*--------------------------------------------------------------------------------------*/
+void RegionesDorsal::setDorsal(long unsigned int pos, std::vector<std::string> const &__dorsales_detect){    
     
-    if ( pos < Participantes.grupo.size()){
+    if ( pos < Participantes.grupo.size() && __dorsales_detect.size() > 0  ){
         
-        Participantes.grupo[pos].dorsal = __dorsales;
+        Participantes.grupo[pos].dorsal = __dorsales_detect;
         
     }
     
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+// Devuelve la dimensión del vector de regiones.
+
+/*--------------------------------------------------------------------------------------*/
 
 long unsigned int RegionesDorsal::size(){    
     
@@ -264,8 +270,10 @@ long unsigned int RegionesDorsal::size(){
     
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+// Devuelve el ROI obtenido en la posición num.
 
+/*--------------------------------------------------------------------------------------*/
 cv::Rect RegionesDorsal::getROI(long unsigned int num){
     
     if ( num < Participantes.grupo.size() ){
@@ -278,8 +286,12 @@ cv::Rect RegionesDorsal::getROI(long unsigned int num){
     
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+//  La función regionHasDorsal comprueba si una región tiene dorsales identificados tras la
 
+//  etapa de reconocimiento.
+
+/*--------------------------------------------------------------------------------------*/
 bool RegionesDorsal::regionHasDorsal(long unsigned int num){
     
     if ( num < Participantes.grupo.size() ){
@@ -292,8 +304,10 @@ bool RegionesDorsal::regionHasDorsal(long unsigned int num){
     
 }
 
+/*--------------------------------------------------------------------------------------*/
+// Devuelve los dorsales asignados a una región en concreto.
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
 
 std::vector<std::string> RegionesDorsal::getDorsalesOfROI(long unsigned int num){
     
@@ -307,9 +321,12 @@ std::vector<std::string> RegionesDorsal::getDorsalesOfROI(long unsigned int num)
     
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+//  Devuelve la región corresondiente a la cara o cara/hombro para un ROI específico determinado
 
+//  por el valor de num.
 
+/*--------------------------------------------------------------------------------------*/
 cv::Rect RegionesDorsal::getFaceUpper(long unsigned int num){
     
     if ( num < Participantes.grupo.size() ){
@@ -322,8 +339,10 @@ cv::Rect RegionesDorsal::getFaceUpper(long unsigned int num){
     
 }
 
-/*-----------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+// Destructor de la clase.
 
+/*--------------------------------------------------------------------------------------*/
 
 RegionesDorsal::~RegionesDorsal() {
 }

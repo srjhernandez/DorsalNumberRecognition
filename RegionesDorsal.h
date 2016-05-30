@@ -69,7 +69,7 @@ class RegionesDorsal {
         
         std::vector<std::string> getDorsalesOfROI(long unsigned int num);
         
-        void setDorsal(long unsigned int po, std::vector<std::string> __dorsales_detect);
+        void setDorsal(long unsigned int pos, std::vector<std::string> const &__dorsales_detect);        
         
         virtual ~RegionesDorsal();
 
@@ -77,7 +77,7 @@ class RegionesDorsal {
         
         void setUpperbodyROI(const int &rows, cv::Rect const & upperDetect, cv::Rect & ROIdetect);
                 
-        void setFaceROI(int rows, int cols, std::vector<cv::Rect> const &detecciones, std::vector<participante> &grupo);
+        void setFaceROI(const int &rows, const int &cols, std::vector<cv::Rect> const &detecciones, std::vector<participante> &grupo);
          
         cv::Rect calcularDimensionROI(const int &rows, const int &cols, cv::Rect const & ROI);  
    
