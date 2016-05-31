@@ -160,57 +160,6 @@ void ExtractTexto::dibujarRectangulo(cv::Mat & imagen, cv::Rect const &r, Scalar
 } 
 
 /*--------------------------------------------------------------------------------------*/
-// Determina la región de interés a partir de la detección de caras/hombro.
-
-// ROI. 
-/*--------------------------------------------------------------------------------------*/
-
-void ExtractTexto::setUpperbodyROI(int rows, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect){   
-
-    double alto = 1.5;
-
-    int dfHombros;
-
-    double heightROI;
-    
-    int dfWidth;
-     
-    ROIdetect.clear();
-
-    for( std::vector<Rect>::const_iterator r = detecciones.begin(); r != detecciones.end(); r++ ){
-    
-        dfHombros = (r->height*0.25);
-
-        heightROI = alto*r->height;
-        
-        dfWidth = r->width * 0.10;
-        
-        int newW = (r->width - 2*dfWidth);
-       
-        int wxPos = r->x + dfWidth;
-       
-        if ( newW <= 0 ) {
-           
-            newW = r->width;
-           
-            wxPos = r->x;
-        }
-
-        if(heightROI + r->height + r->y > rows){
-
-            heightROI = rows - r->y - r->height + dfHombros - 3;
-
-        }
-
-        cv::Rect ROI = cv::Rect(wxPos, r->y + r->height - dfHombros, newW, heightROI);   
-        
-        if(ROI.height > 0 && ROI.width > 0){
-            ROIdetect.push_back(cv::Rect(ROI));
-        }        
-    } 
-}
-
-/*--------------------------------------------------------------------------------------*/
 
 // La imagen pasada como primer parámetro se redimensiona a la altura pasada como segundo 
 

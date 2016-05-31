@@ -78,9 +78,7 @@ private:
     bool leerImagen( std::string const pathToImg );
     
     void liberarRecursosImagen();       
-    
-    void setUpperbodyROI(int rows, std::vector<cv::Rect> const &detecciones, std::vector<cv::Rect> & ROIdetect);   
-         
+   
     void dibujarRectangulo(cv::Mat & imagen, cv::Rect const &detecciones, Scalar color);   
     
     void imprimirDetecciones(cv::Mat &imagen, RegionesDorsal reg , Scalar color );
@@ -112,11 +110,7 @@ private:
         cv::Mat imagenEntrada;
         
         cv::Mat imagenSalida;
-        
-        std::vector<cv::Rect> face_upperbody_ROI;
-        
-        std::vector<cv::Rect> detecciones_face_upperbody;
-        
+                
         std::vector<cv::Rect> cajasDeTextos;
         
         std::vector<std::string> dorsales; 
