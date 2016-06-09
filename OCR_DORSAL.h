@@ -8,40 +8,9 @@
 #ifndef OCR_DORSAL_H
 #define OCR_DORSAL_H
 
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/text.hpp>
-#include "opencv2/core/utility.hpp"
-#include "opencv2/core/mat.hpp"
-#include "opencv2/objdetect/objdetect.hpp"
 #include <tesseract/baseapi.h>
-#include <iostream>
-
-#define listNumbers ("0123456789")
-
-#define RATECHARFAULT 0.50
-
-using namespace cv;
-using namespace cv::text;
-
-enum class Tipo_OCR { TESSERACT, OCRBEAMSEARCH, OCRHMM };
-
-
-/*   Clase general para los OCR */
-
-class OBJECT_OCR {
-    
-    public:
-
-        virtual std::string ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std::vector<cv::Point>> &contornoCaracteres) = 0;
-
-        virtual ~OBJECT_OCR(){};
-
-};
-
-
    
-//  Clase Template 
+//  Clase Template que permite crear instancias de OCR de distinta  
 
 template <class T> class OCR_DORSAL : public OBJECT_OCR  {
       
@@ -75,10 +44,10 @@ template <class T> class OCR_DORSAL : public OBJECT_OCR  {
         void add(std::string &caracter, int pos){  
                       
             if ( caracter.empty() || std::string(listNumbers).find(caracter) == std::string::npos ){                
-                charFault++;            
+                charFault++;                  
             } 
             else{            
-
+               
                 digitos.push_back( number(caracter, pos) );
             } 
             caracter.clear();

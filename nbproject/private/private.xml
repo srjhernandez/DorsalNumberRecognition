@@ -7,11 +7,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jesus/Documentos/DNR/ExtractTexto.h</file>
-            <file>file:/home/jesus/Documentos/DNR/main.cpp</file>
             <file>file:/home/jesus/Documentos/DNR/ExtractTexto.cpp</file>
-            <file>file:/home/jesus/Documentos/DNR/RegionesDorsal.h</file>
+            <file>file:/home/jesus/Documentos/DNR/ExtractTexto.h</file>
             <file>file:/home/jesus/Documentos/DNR/RegionesDorsal.cpp</file>
+            <file>file:/home/jesus/Documentos/DNR/OCR_DORSAL.h</file>
+            <file>file:/home/jesus/Documentos/DNR/OCR_DORSAL.cpp</file>
         </group>
     </open-files>
 </project-private>

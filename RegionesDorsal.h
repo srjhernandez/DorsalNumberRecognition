@@ -8,20 +8,19 @@
 #ifndef REGIONESDORSAL_H
 #define REGIONESDORSAL_H
 
-#include <iostream>
+#include "OBJECTCLASS.h"
 
+#include <iostream>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include "opencv2/core/utility.hpp"
-#include "opencv2/objdetect/objdetect.hpp"
+#include <opencv2/core/utility.hpp>
+#include <opencv2/core/mat.hpp>
+#include <opencv2/objdetect/objdetect.hpp>
+#include <opencv2/text.hpp>
 
 using namespace cv;
 
-
-#define CV_FACE std::string("haarcascade_frontalface_alt.xml")
-
-#define CV_UPPERBODY std::string("haarcascade_mcs_upperbody.xml")
-
+using namespace cv::text;
 
 class RegionesDorsal {
        

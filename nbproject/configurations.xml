@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>ExtractTexto.h</itemPath>
+      <itemPath>OBJECTCLASS.h</itemPath>
       <itemPath>OCR_DORSAL.h</itemPath>
       <itemPath>RegionesDorsal.h</itemPath>
     </logicalFolder>
@@ -107,6 +108,8 @@
       <item path="ExtractTexto.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ExtractTexto.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OBJECTCLASS.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OCRBeamSearch_CNN_model_data.xml.gz"
             ex="false"
@@ -225,6 +228,8 @@
       <item path="ExtractTexto.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ExtractTexto.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="OBJECTCLASS.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="OCRBeamSearch_CNN_model_data.xml.gz"
             ex="false"

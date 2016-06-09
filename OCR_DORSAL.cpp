@@ -4,9 +4,7 @@
  * 
  * Created on 18 de mayo de 2016, 19:49
  */
-
-#include "OCR_DORSAL.h"
-
+  
 /*-----------------------------------------------------------------------------*/
 template <class T> 
 
@@ -70,10 +68,6 @@ std::string OCR_DORSAL<T>::ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std:
 
             cv::copyMakeBorder(imagenSegment.clone(), imagenSegment,15,15,15,15,BORDER_CONSTANT,Scalar(0));       
 
-            namedWindow("CARACTER", WINDOW_NORMAL);        
-            cv::imshow("CARACTER",imagenSegment);
-            cv::waitKey(1200);
-
             NumberRecognition(imagenSegment, digit_numero); 
             
             numero.add(digit_numero, boundRect[i].x);       
@@ -85,8 +79,11 @@ std::string OCR_DORSAL<T>::ReconocerDorsal(cv::Mat &imgBinaria, std::vector<std:
         }
 
         numero.ordenar();
-
-        return numero.get();       
+        
+        std::string Num = numero.get();
+        
+        std::cout<<"DORSAL: "<<Num<<std::endl;
+        return Num;       
     }
     else{
         

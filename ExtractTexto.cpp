@@ -3,9 +3,11 @@
  * Author: jesus
  * 
  * Created on 6 de abril de 2016, 17:50
- */
+ */ 
 
 #include "ExtractTexto.h"
+
+#include "OCR_DORSAL.h"
 
 // Constructor de la clase ExtractTexto. Inicializació de las atributos.
 
@@ -243,12 +245,7 @@ void ExtractTexto::Segmentar( cv::Mat const & source, std::vector<cv::Rect> &gro
     findSuperRect(groups_boxes, groups_boxes);
     
     groups_draw(imagClone, groups_boxes);  
-    
-    namedWindow("FILTERING", WINDOW_NORMAL);
-    
-    imshow("FILTERING", imagClone);
-    cv::waitKey(-1);
-    
+           
     er_filter1.release();
     er_filter2.release();
     regions.clear();
@@ -364,24 +361,15 @@ void ExtractTexto::BinarizarRegion(cv::Mat const &src, cv::Mat &imagenRegion, cv
     cv::Mat original(src, region), gris, originalRZ, adaptative; 
     
     RedimensionarImagen(original, 300, originalRZ);
-       
-    namedWindow("Original", WINDOW_NORMAL);
-    cv::imshow("Original", originalRZ);
-                   
+    
     cv::cvtColor(originalRZ, gris, CV_BGR2GRAY);
-        
-    namedWindow("gris", WINDOW_NORMAL);
-    cv::imshow("gris",gris);
-                   
+                      
     //cv::adaptiveThreshold(gris, adaptative, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 401, 30);     
     
     cv::adaptiveThreshold(gris, adaptative, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY_INV, 371, 25);
     
     RedimensionarImagen(adaptative, 200, imagenRegion);
     
-    namedWindow("Imagen Region", WINDOW_NORMAL);
-    cv::imshow("Imagen Region",imagenRegion);
-    cv::waitKey(-1);
 }
 
 
@@ -406,6 +394,8 @@ void ExtractTexto::DetectarCaracteres(cv::Mat const &caracteresROI, std::vector<
             contornoCaracteres.push_back(contornos[i]);       
         }
     } 
+    
+    std::cout<<"DETECTADOS "<<contornoCaracteres.size()<< " CARACTERES"<<std::endl;
 }
 
 
@@ -565,14 +555,7 @@ void ExtractTexto::runExtract(std::string const path, Tipo_OCR OCR_type ){
     // Paso 5. Crear una imagen nueva incluyendo las detecciones
 
     imprimirDetecciones(imagenSalida, DNR_Regiones , AZUL);
-    
          
-    namedWindow("test", WINDOW_NORMAL);
-        
-    cv::imshow("test", imagenSalida);
-    
-    cv::waitKey(-1); 
-    
     
     // Paso 6. Liberar la memoria asignada.
     

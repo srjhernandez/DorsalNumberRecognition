@@ -3,26 +3,16 @@
  * Author: jesus
  *
  * Created on 6 de abril de 2016, 17:50
- */
+ */ 
 
 #ifndef EXTRACTTEXTO_H
 #define EXTRACTTEXTO_H
 
-#include "OCR_DORSAL.h"
 #include "RegionesDorsal.h"
+//#include "OBJECTCLASS.h"
 
-#define MAX_GROUP_BOXES 3
 
-#define ROJO Scalar(0,0,255)
-
-#define VERDE Scalar(0,255,0)
-
-#define AZUL Scalar(255,0,0)
-
-#define __FACTOR_UPPER__ 0.999
-
-using namespace cv;
-using namespace cv::text;
+template <class T> class OCR_DORSAL;
 
 class ExtractTexto {
        
